@@ -5,11 +5,15 @@ Anzu is very light CLI tool for checking whether files have license header
 ![Anzu example output](./docs/example-output.png)
 
 ## Installation
-- Without explicit permissions:
-  - `deno install https://deno.land/anzu@1.0.0/src/cli.ts -n anzu`
-- With explicit permissions:
-  - `deno install --allow-read --allow-write --allow-net https://deno.land/anzu@1.0.0/src/cli.ts -n anzu`
+Remember you have to have deno path set when installing. Do it using this bash command:
+`echo 'export PATH="$HOME/.deno/bin:$PATH"' >> ~/.bashrc`
+You may want to replace `~/.bashrc` with your shell rc config, eg. `~/.zshrc` for zsh
 
+- Without explicit permissions:
+  - `deno install -n anzu https://deno.land/x/anzu@1.0.0/src/cli.ts`
+- With explicit permissions:
+  - `deno install -n anzu --allow-read --allow-write --allow-net https://deno.land/x/anzu@1.0.0/src/cli.ts`
+- You can also do `deno run https://deno.land/x/anzu@1.0.0/src/cli.ts` without actually installing it
 
 ## 📚 Why not [deno_license_checker](https://github.com/kt3k/deno_license_checker)
 I got discouraged from deno_license_checker because of several things, majorly:
