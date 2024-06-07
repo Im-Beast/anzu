@@ -1,4 +1,4 @@
-// Copyright 2021 Im-Beast. All rights reserved. MIT license.
+// Copyright 2024 Im-Beast. All rights reserved. MIT license.
 import {
   bold,
   cyan,
@@ -87,7 +87,6 @@ const options: Options = {
             styleArg("--license")
           } option`,
         );
-        Deno.exit(1);
       }
 
       let prepend: PrependLicense = PrependLicense.Never;
@@ -107,7 +106,6 @@ const options: Options = {
               } option ${error.message}`,
               error,
             );
-            Deno.exit(1);
           }
         }
       }
@@ -118,12 +116,11 @@ const options: Options = {
       }
 
       const license = await compileLicense(
-        options.license.value[0],
+        options.license.value![0],
         normalizeNewlines,
       );
       if (!license) {
         cliError(`Given ${styleArg("--license")} argument is invalid!`);
-        Deno.exit(1);
       }
 
       try {
@@ -178,6 +175,7 @@ function cliError(message: string, error?: Error): void {
     throw error || new Error(message);
   } else {
     console.log(`${red("Error")} ${yellow(">")} ${message}`);
+    Deno.exit(1);
   }
 }
 
@@ -239,10 +237,9 @@ if (import.meta.main) {
   }
 
   for (const [name, args] of entries) {
-    const option = optionLinks.get(name);
+    const option = optionLinks.get(name)!;
     if (!option) {
       cliError(`Option ${cyan(name)} has not been found`);
-      Deno.exit(1);
     }
 
     if (option.args) {
@@ -253,7 +250,6 @@ if (import.meta.main) {
               cyan(name)
             } is missing`,
           );
-          Deno.exit(1);
         }
       }
     }

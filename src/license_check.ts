@@ -1,4 +1,3 @@
-// Copyright 2021 Im-Beast. All rights reserved. MIT license.
 import { cyan, gray, green, red, white, yellow } from "./deps.ts";
 
 let permissionDelay = 0;
@@ -245,9 +244,7 @@ export async function checkForLicense(
     }
   }
 
-  if (
-    prepend !== PrependLicense.Never && license.value instanceof RegExp
-  ) {
+  if (prepend !== PrependLicense.Never && license.value instanceof RegExp) {
     throw new Error(
       "RegExp license value can only be used to search for a license!",
     );
@@ -356,4 +353,8 @@ export async function checkDirectoryForLicenses(
 ${formatIndent(`Checked ${checkedFiles} files`)} (${filesMarker})
 ${formatIndent(`It took`)} ${Date.now() - start}ms ${delay}`,
   );
+
+  if (status[0] && prepend === PrependLicense.Never) {
+    throw new Error("Files with no license have been found");
+  }
 }
